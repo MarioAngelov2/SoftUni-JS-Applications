@@ -1,5 +1,25 @@
 function attachEvents() {
-    console.log('TODO...');
+    document.getElementById('refresh').addEventListener('click', getAllMessage);
+    document.getElementById('submit').addEventListener('click', onSendMsg);
+}
+
+function renderMsg(data) {
+  const textArea = document.getElementById('messages');
+  const response = Object.values(data).map(entry => `${entry.author}: ${entry.content}`).join('\n')
+  textArea.textContent = response
+}
+
+function onSendMsg() {
+    const author = document.querySelector("input[name='author']");
+    const content = document.querySelector("input[name='content']");
+
+    const body = {
+        author: author.value,
+        content: content.value
+    }
+    author.value = '';
+    content.value = '';
+    createMessage(body)
 }
 
 async function getAllMessage() {
@@ -7,7 +27,7 @@ async function getAllMessage() {
     const response = await fetch(url);
     const data = await response.json();
 
-    return data;
+    renderMsg(data)
 }
 
 async function createMessage(body) {
