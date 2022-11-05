@@ -41,7 +41,7 @@ async function solution() {
             ev.target.textContent = hidden ? 'Less' : 'More';
         }
 
-        // create dom elements
+        // create dynamic dom functionality
         function createElement(type, content, attributes = []) {
 
             const element = document.createElement(type);
