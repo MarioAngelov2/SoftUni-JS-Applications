@@ -10,13 +10,22 @@ function onLoad(data) {
     Object.values(data).forEach(el => {
         const delBtn = document.createElement('button');
         delBtn.textContent = 'Delete';
+
         const li = document.createElement('li');
         li.textContent = `${el.person}: ${el.phone}`;
         li.setAttribute('data-id', el._id);
+        delBtn.addEventListener('click', handleDelete)
         li.appendChild(delBtn);
         ul.appendChild(li);
     });
+}
 
+function handleDelete(ev) {
+    const li = ev.target.parentElement;
+    const id = li.getAttribute('data-id');
+
+    deleteData(id);
+    li.remove();
 }
 
 function onCreate() {
