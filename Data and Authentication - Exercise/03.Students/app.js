@@ -39,6 +39,14 @@ async function getData() {
     function onSubmit(ev) {
         ev.preventDefault();
 
+        if (isNaN(facultyNumberInput.value) || isNaN(gradeInput.value)) {
+            return alert('Wrong input data!');
+        }
+
+        if (firstNameInput.value === '' || lastNameInput.value === '' || facultyNumberInput.value === '' || gradeInput.value === '') {
+            return alert('Empty input!')
+        }
+
         const tr = document.createElement('tr');
 
         const firstNameCell = tr.insertCell(0);
