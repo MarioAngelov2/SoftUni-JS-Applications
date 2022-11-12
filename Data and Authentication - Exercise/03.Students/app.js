@@ -1,7 +1,5 @@
 async function getData() {
     const table = document.querySelector('#results tbody');
-    document.getElementById('submit').addEventListener('click', onSubmit)
-
     const firstNameInput = document.querySelector('input[name="firstName"]');
     const lastNameInput = document.querySelector('input[name="lastName"]');
     const facultyNumberInput = document.querySelector('input[name="facultyNumber"]');
@@ -31,12 +29,12 @@ async function getData() {
         const gradeCell = tr.insertCell(3);
         gradeCell.textContent = grade;
 
-
-        
-        table.appendChild(tr)
+        table.appendChild(tr);
     });
 
-    function onSubmit(ev) {
+    document.getElementById('submit').addEventListener('click', onSubmit)
+
+   async function onSubmit(ev) {
         ev.preventDefault();
 
         if (isNaN(facultyNumberInput.value) || isNaN(gradeInput.value)) {
@@ -46,6 +44,19 @@ async function getData() {
         if (firstNameInput.value === '' || lastNameInput.value === '' || facultyNumberInput.value === '' || gradeInput.value === '') {
             return alert('Empty input!')
         }
+
+        const response = await fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                facultyNumber: Number(facultyNumberInput.value),
+                grade: Number(gradeInput.value)
+            })
+        });
 
         const tr = document.createElement('tr');
 
