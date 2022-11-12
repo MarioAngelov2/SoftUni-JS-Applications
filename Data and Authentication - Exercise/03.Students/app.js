@@ -34,7 +34,7 @@ async function getData() {
 
     document.getElementById('submit').addEventListener('click', onSubmit)
 
-   async function onSubmit(ev) {
+    async function onSubmit(ev) {
         ev.preventDefault();
 
         if (isNaN(facultyNumberInput.value) || isNaN(gradeInput.value)) {
