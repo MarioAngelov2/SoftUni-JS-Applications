@@ -44,6 +44,10 @@ async function createPost(body) {
     clearForm();
 }
 
+function clearForm() {
+    form.reset();
+}
+
 async function loadTopic(id) {
     const url = `http://localhost:3030/jsonstore/collections/myboard/posts/${id}`
     const response = await fetch(url);
