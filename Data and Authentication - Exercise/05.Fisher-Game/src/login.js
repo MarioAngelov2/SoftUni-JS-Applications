@@ -23,8 +23,11 @@ async function onLogin(email, password) {
     const response = await fetch(url, header);
     const data = await response.json();
 
-    sessionStorage.setItem('email', data.email);
-    sessionStorage.setItem('accessToken', data.accessToken)
+    sessionStorage.setItem('userData', JSON.stringify({
+        email: data.email,
+        accessToken: data.accessToken,
+        id: data._id
+    }))
 
     window.location = './index.html';
     return data;

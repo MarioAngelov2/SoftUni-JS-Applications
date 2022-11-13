@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', onLoadHTML);
 
 document.getElementById('logout').addEventListener('click', onLogout);
 document.getElementById('addForm').addEventListener('submit', createCatch);
+document.querySelector('.load').addEventListener('click', onLoadCatch);
 
 async function onLogout() {
     const url = 'http://localhost:3030/users/logout';
@@ -27,6 +28,14 @@ function onLoadHTML() {
         greatingMsg.textContent = sessionStorage.getItem('guest');
         addBtn.disabled = true;
     }
+}
+
+// render method
+async function onLoadCatch() {
+    const url = 'http://localhost:3030/data/catches';
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
 }
 
 function createCatch(ev) {
