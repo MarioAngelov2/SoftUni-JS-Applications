@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', onLoadHTML);
 
 document.getElementById('logout').addEventListener('click', onLogout);
+document.getElementById('addForm').addEventListener('submit', createCatch);
 
 async function onLogout() {
     const url = 'http://localhost:3030/users/logout';
@@ -13,16 +14,35 @@ async function onLogout() {
 function onLoadHTML() {
     const token = sessionStorage.getItem('accessToken');
     const greatingMsg = document.querySelector('p.email span');
+    const addBtn = document.querySelector('.add');
 
     if (token) {
         document.getElementById('guest').style.display = 'none';
         document.getElementById('user').style.display = 'inline-block'
         greatingMsg.textContent = sessionStorage.getItem('email');
+        addBtn.disabled = false;
     } else {
         document.getElementById('guest').style.display = 'inline-block';
         document.getElementById('user').style.display = 'none'
         greatingMsg.textContent = sessionStorage.getItem('guest');
+        addBtn.disabled = true;
     }
+}
+
+function createCatch(ev) {
+    ev.preventDefault();
+    const form = ev.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    onCreateCatch(data);
+}
+
+async function onCreateCatch(body) {
+    const url = 'http://localhost:3030/data/catches';
+    const header = getHeader('POST', body);
+    const response = await fetch(url, header);
+    const data = await response.json();
+    return data;
 }
 
 function getHeader(method, body) {
