@@ -1,6 +1,8 @@
 document.getElementById('register-form').addEventListener('submit', registerHandler);
 document.querySelectorAll('a').forEach(x => x.classList.remove('active'));
 document.getElementById('register').classList.add('active');
+document.getElementById('user').style.display = 'none'
+
 const errorP = document.querySelector('p.notification');
 
 function registerHandler(ev) {
@@ -9,15 +11,15 @@ function registerHandler(ev) {
 
     const form = ev.target;
     const formData = new FormData(form);
-    const { email, password, rePassword } = Object.fromEntries(formData);
+    const { email, password, rePass } = Object.fromEntries(formData);
 
-    if (password !== rePassword) {
+    if (password !== rePass) {
         setTimeout(() => {
             errorP.textContent = 'Error!';
         }, 1000)
+    } else {
+        onRegister(email, password);
     }
-
-    onRegister(email, password);
 }
 
 
@@ -33,14 +35,14 @@ async function onRegister(email, password) {
     try {
         const response = await fetch(url, header);
         const data = await response.json();
-        if (data.code !== 200) {
+        if (data.code !== 200 && data.code) {
             throw new Error(data.message)
         }
 
         sessionStorage.setItem('email', data.email);
         sessionStorage.setItem('accessToken', data.accessToken)
         window.location = './index.html';
-        
+
         return data
     } catch (error) {
         errorP.textContent = error;
@@ -48,7 +50,6 @@ async function onRegister(email, password) {
             errorP.textContent = '';
         }, 2000)
     }
-
 }
 
 function getHeader(method, body) {

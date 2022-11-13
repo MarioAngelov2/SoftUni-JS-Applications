@@ -1,6 +1,7 @@
 document.getElementById('login-form').addEventListener('submit', loginHandler)
 document.querySelectorAll('a').forEach(x => x.classList.remove('active'));
 document.getElementById('login').classList.add('active');
+document.getElementById('user').style.display = 'none'
 
 function loginHandler(ev) {
     ev.preventDefault();
