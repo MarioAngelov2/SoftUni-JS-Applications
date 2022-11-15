@@ -26,7 +26,7 @@ function update(text) {
    render(ul, townsSection)
 }
 
-function search(ev) {
+function search() {
    const searchField = document.getElementById('searchText');
    const text = searchField.value.toLowerCase();
    searchField.value = ''
