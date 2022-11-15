@@ -1,4 +1,4 @@
-import {html, render} from '../node_modules/lit-html/lit-html.js';
+import { html, render } from '../node_modules/lit-html/lit-html.js';
 
 const form = document.querySelector('form');
 form.addEventListener('submit', onSubmit);
@@ -6,10 +6,10 @@ form.addEventListener('submit', onSubmit);
 const root = document.getElementById('root');
 
 function onSubmit(ev) {
-    ev.preventDefault(); 
+    ev.preventDefault();
 
     const formData = new FormData(form);
-    const {towns} = Object.fromEntries(formData);
+    const { towns } = Object.fromEntries(formData);
     const arrTowns = towns.split(', ');
     renderData(arrTowns);
 
@@ -22,9 +22,9 @@ function renderData(data) {
 }
 
 function createTownList(data) {
-    const ul = html `
+    const ul = html`
         <ul>
-            ${data.map(el => html `<li>${el}</li>`)}
+            ${data.map(el => html`<li>${el}</li>`)}
         </ul>
     `
     return ul;
