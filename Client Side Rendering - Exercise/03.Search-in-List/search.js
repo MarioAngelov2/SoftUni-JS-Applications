@@ -2,34 +2,41 @@ import { towns } from './towns.js';
 import { html, render } from '../node_modules/lit-html/lit-html.js';
 
 const townsSection = document.getElementById('towns');
-const searchField = document.getElementById('searchText');
+const resultElement = document.getElementById('result')
 const searchBtn = document.querySelector('button');
 searchBtn.addEventListener('click', search)
 
 update()
 
-function search(towns) {
-   console.log(townTemplate)
-}
-
-function searchTemplate(townsName) {
+function searchTemplate(townsName, match) {
    const ul = html`
    <ul>
-      ${townsName.map(townsName => createLiTemplate(townsName))}
+      ${townsName.map(townName => createLiTemplate(townName, match))}
    </ul>
 `
 return ul;
 }
 
-function createLiTemplate(town) {
-   return html`
-      <li>
-         ${town}
-      </li>
-   `
+function createLiTemplate(town, match) {
+   return html`<li class="${(match && town.toLowerCase().includes(match)) ? "active" : ""}"> ${town} </li>`
 }
 
-function update() {
-   const ul = searchTemplate(towns);
+function update(text) {
+   const ul = searchTemplate(towns, text);
    render(ul, townsSection)
+}
+
+function search(ev) {
+   const searchField = document.getElementById('searchText');
+   const text = searchField.value.toLowerCase();
+   searchField.value = ''
+   update(text)
+   matchCounter();
+}
+
+function matchCounter() {
+ const count = document.querySelectorAll('.active').length;
+ const countElement = count ? html `<p>${count} matches found</p>` : '';
+ 
+ render(countElement, resultElement)
 }
