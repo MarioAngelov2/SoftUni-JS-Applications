@@ -32,8 +32,8 @@ async function postData(body) {
 function addItem(ev) {
     ev.preventDefault();
     const inputTextElement = document.getElementById('itemText').value;
-    form.reset();
     inputTextElement && postData(inputTextElement);
+    form.reset();
 }
 
 getData()
