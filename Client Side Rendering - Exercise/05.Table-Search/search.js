@@ -1,5 +1,5 @@
 export function solve() {
-    const tRows = document.querySelector('.container tbody').children();
+    const tRows = document.querySelector('.container tbody').children
     const inputField = document.getElementById('searchField');
     let match = inputField.value;
     inputField.value = '';

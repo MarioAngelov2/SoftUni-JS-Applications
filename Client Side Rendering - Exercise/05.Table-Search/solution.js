@@ -1,7 +1,13 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js';
+import {getData} from './api.js';
+import {studentsTemplate} from './students.js';
+import {solve} from './search.js';
 
-function solve() {
-   // document.querySelector('#searchBtn').addEventListener('click', onClick);
+let tBody = document.querySelector('body tbody');
+let studentsData = await getData();
+let template = studentsTemplate(Object.values(studentsData));
 
-}
-solve()
+render(template, tBody);
+
+const searchBtn = document.querySelector('#searchBtn');
+searchBtn.addEventListener('click', solve)
