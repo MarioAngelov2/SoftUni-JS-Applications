@@ -8,7 +8,7 @@ export function solve() {
 
         row.classList.remove('select');
 
-        if (row.textContent.toLowerCase().includes(match)){
+        if (match && row.textContent.toLowerCase().includes(match.toLowerCase())) {
             row.classList.add('select');
         }
     }
