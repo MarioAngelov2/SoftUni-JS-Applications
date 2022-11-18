@@ -7,6 +7,8 @@ document.querySelector('nav').addEventListener('click', (event) => {
     if (event.target.tagName === 'A' && event.target.href) {
         event.preventDefault();
         const url = new URL(event.target.href);
+
+        const view = []
     }
 })
 
