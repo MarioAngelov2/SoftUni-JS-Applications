@@ -4,6 +4,12 @@ import page from '../node_modules/page/page.mjs';
 //import views
 import { updateNav } from './views/nav.js'
 import { getUserData } from './util.js'
+import { showLogin } from './views/login.js';
+import { showHome } from './views/home.js';
+import { showRegister } from './views/register.js';
+import { showCatalog } from './views/catalog.js';
+import { showCreate } from './views/create.js';
+import { showDetails } from './views/details.js';
 
 // get main element for render
 const main = document.getElementById('main-content');
@@ -12,7 +18,13 @@ const main = document.getElementById('main-content');
 page(decorateContext);
 
 //create page routing
-page('/', () => console.log('home'))
+page('/', showHome)
+page('/home', showHome)
+page('/login', showLogin)
+page('/register', showRegister)
+page('/catalog', showCatalog)
+page('/create', showCreate)
+page('/details/:id', showDetails)
 
 page.start();
 updateNav();
