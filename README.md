@@ -10,8 +10,3 @@
 <p align="left">Working with non-relational databases</p>
 <p align="left">Working with REST APIs and asynchronous programming</p>
 <p align="left">Testing the application</p>
-    
-    
-    
-    
-   
