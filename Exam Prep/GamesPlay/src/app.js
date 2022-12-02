@@ -10,11 +10,7 @@ import { showAll } from './views/all.js';
 import { showHome } from './views/home.js';
 import { showCreate } from './views/create.js';
 import { showDetail } from './views/details.js';
-// import { showCatalog } from './views/catalog.js';
-// import { showCreate } from './views/create.js';
-// import { showHome } from './views/home.js';
-// import { showLogin } from './views/login.js';
-// import { showRegister } from './views/register.js';
+import { showEdit } from './views/edit.js';
 
 // get main element for render
 const main = document.getElementById('main-content');
@@ -30,6 +26,7 @@ page('/register', showRegister);
 page('/all', showAll);
 page('/create', showCreate);
 page('/details/:id', showDetail);
+page('/edit/:id', showEdit);
 
 page.start();
 updateNav();

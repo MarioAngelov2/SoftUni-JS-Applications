@@ -1,23 +1,20 @@
 import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
-import { detailsById } from '../api/data.js';
+import { detailsById, deleteGame } from '../api/data.js';
 
-const detailsTemp = (isOnwer, hasUser) => html`
+const detailsTemp = (game, isOnwer, onDelete) => html`
 <section id="game-details">
 <h1>Game Details</h1>
 <div class="info-section">
 
     <div class="game-header">
-        <img class="game-img" src="images/MineCraft.png" />
-        <h1>Bright</h1>
-        <span class="levels">MaxLevel: 4</span>
-        <p class="type">Action, Crime, Fantasy</p>
+        <img class="game-img" src=${game.imageUrl} />
+        <h1>${game.title}</h1>
+        <span class="levels">MaxLevel: ${game.maxLevel}</span>
+        <p class="type">${game.category}</p>
     </div>
 
     <p class="text">
-        Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work
-        with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy
-        creatures live side by side with humans. A human cop is forced
-        to work with an Orc to find a weapon everyone is prepared to kill for.
+       ${game.summary}
     </p>
 
     <!-- Bonus ( for Guests and Users ) -->
@@ -39,8 +36,8 @@ const detailsTemp = (isOnwer, hasUser) => html`
     ${isOnwer ? html`
     <!-- Edit/Delete buttons ( Only for creator of this game )  -->
     <div class="buttons">
-        <a href="#" class="button">Edit</a>
-        <a href="#" class="button">Delete</a>
+        <a href="/edit/${game._id}" class="button">Edit</a>
+        <a @click=${onDelete} href="javascript:void(0)" class="button">Delete</a>
     </div>
     ` : nothing}
     
@@ -67,5 +64,16 @@ export async function showDetail(ctx) {
     const isOnwer = user ? game._ownerId === user._id : false;
     const hasUser = user ? true : false
 
-    ctx.render(detailsTemp(isOnwer, hasUser));
+    ctx.render(detailsTemp(game, isOnwer, onDelete));
+
+    async function onDelete() {
+        const userConfirm = confirm('Are you sure?');
+
+        if (!userConfirm) {
+            return;
+        }
+
+        await deleteGame(id);
+        ctx.page.redirect('/home')
+    }
 }

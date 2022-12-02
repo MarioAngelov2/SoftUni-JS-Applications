@@ -15,5 +15,13 @@ export async function createGames(data) {
 }
 
 export async function detailsById(id) {
-    return get('/data/games/' + id)
+    return get('/data/games/' + id);
+}
+
+export async function deleteGame(id) {
+    return del('/data/games/' + id);
+}
+
+export async function editGame(id) {
+    return put('/data/games/' + id);
 }
